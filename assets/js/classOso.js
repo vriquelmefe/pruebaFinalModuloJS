@@ -5,5 +5,7 @@ export default class Oso extends Animal {
     super(nombre, edad, img, comentarios, sonido);
     
   }
-  Gruñir() {}
+  Gruñir() {
+    return 'assets/sounds/Gruñido.mp3'
+  }
 }

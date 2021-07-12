@@ -5,5 +5,7 @@ export default class Lobo extends Animal {
     super(nombre, edad, img, comentarios, sonido);
     
   }
-  Aullar() {}
+  Aullar() {
+    'assets/sounds/Aullido.mp3'
+  }
 }

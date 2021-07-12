@@ -6,6 +6,6 @@ export default class Serpiente extends Animal {
     
   }
   Sisear() {
-
+    return 'assets/sounds/Siseo.mp3'
   }
 }
