@@ -55,7 +55,7 @@ const registro = (event) => {
   document.getElementById('animal').value = "Seleccione un animal";
   document.getElementById('edad').value = "";
   document.getElementById('comentarios').value = "";
-  document.getElementById('imagenAnimal').src = "";
+  //document.getElementById('imagenAnimal').src = "";
 }
 
 //tomo el evento click del boton registrar
