@@ -1,4 +1,3 @@
-import Animal from './classAnimal.js';
 import Leon from './classLeon.js';
 import Lobo from './classLobo.js';
 import Oso from './classOso.js';
@@ -14,11 +13,7 @@ const comentario = document.getElementById('comentarios').value;
 const img = imagenPreviewAnimal.src.seleccionandoImagen;
 
 const registro = (event) => {
-
   event.preventDefault(); 
-  
-  //const tarjetaImagenAgregada = document.getElementById('imagenCard')
-  
   async function enviarResultado () {
     const animales = document.getElementById('Animales') //aqui van cargadas las imagenes del animal registrado   
     const sonidoAnimal = await getSonidos(baseURL, seleccionAnimal.value);
@@ -51,11 +46,15 @@ const registro = (event) => {
       const aguila = new Aguila(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(aguila);
     }
+
   //dejo el formulario de ingreso vacio
-  document.getElementById('animal').value = "Seleccione un animal";
-  document.getElementById('edad').value = "";
-  document.getElementById('comentarios').value = "";
-  //document.getElementById('imagenAnimal').src = "";
+  (() => {
+    document.getElementById('animal').value = "Seleccione un animal";
+    document.getElementById('edad').value = "";
+    document.getElementById('comentarios').value = "";
+    //document.getElementById('imagenAnimal').src = "";
+  })();
+  
 }
 
 //tomo el evento click del boton registrar
