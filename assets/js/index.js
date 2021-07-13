@@ -12,10 +12,7 @@ const arregloAnimalesCard = [];
 const edad = document.getElementById('edad').value;
 const comentario = document.getElementById('comentarios').value;
 const img = imagenPreviewAnimal.src.seleccionandoImagen;
-//const animalito = new Animal(seleccionAnimal, edad, img, comentario, sonidoAnimal);
-const tarjetaImagenAgregada = document.getElementById('cardAgregada');
-const audio = document.getElementById('player');
-console.log(imagenPreviewAnimal.src)
+
 const registro = (event) => {
 
   event.preventDefault(); 
@@ -26,7 +23,6 @@ const registro = (event) => {
     const animales = document.getElementById('Animales') //aqui van cargadas las imagenes del animal registrado   
     const sonidoAnimal = await getSonidos(baseURL, seleccionAnimal.value);
     console.log(sonidoAnimal.sonido)
-
     arregloAnimalesCard.push( `
     <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2">
     <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="...">
@@ -64,16 +60,6 @@ const registro = (event) => {
 
 //tomo el evento click del boton registrar
 btnRegistrar.addEventListener('click', registro);
-
-
-
-// const instancias = () => {
-//   const lion = new Leon(seleccionAnimal, edad, img, comentario, audio);
-//   const wolf = new Lobo(seleccionAnimal, edad, img, comentario, audio);
-//   const bear = new Oso(seleccionAnimal, edad, img, comentario, audio);
-//   const snake = new Serpiente(seleccionAnimal, edad, img, comentario, audio);
-//   const bird = new Aguila(seleccionAnimal, edad, img, comentario, audio);
-// }
 
 //json animales
 const baseURL = './animales.json';
@@ -124,5 +110,13 @@ const seleccionandoSonido = (nombreAnimal) => {
     .catch(err => console.log('err' , err))
   ])
 }
+
+// const instancias = () => {
+//   const lion = new Leon(seleccionAnimal, edad, img, comentario, audio);
+//   const wolf = new Lobo(seleccionAnimal, edad, img, comentario, audio);
+//   const bear = new Oso(seleccionAnimal, edad, img, comentario, audio);
+//   const snake = new Serpiente(seleccionAnimal, edad, img, comentario, audio);
+//   const bird = new Aguila(seleccionAnimal, edad, img, comentario, audio);
+// }
 
 
