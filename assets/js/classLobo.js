@@ -6,6 +6,6 @@ export default class Lobo extends Animal {
     
   }
   Aullar() {
-    'assets/sounds/Aullido.mp3'
+    return 'assets/sounds/Aullido.mp3'
   }
 }

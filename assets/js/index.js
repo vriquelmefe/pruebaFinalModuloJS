@@ -11,11 +11,11 @@ const sonidoAnimal = document.getElementById('sonidoAnimal');
 const arregloAnimalesCard = [];
 const edad = document.getElementById('edad').value;
 const comentario = document.getElementById('comentarios').value;
-const img = imagenPreviewAnimal.src;
-const animalito = new Animal(seleccionAnimal, edad, img, comentario, sonidoAnimal);
+const img = imagenPreviewAnimal.src.seleccionandoImagen;
+//const animalito = new Animal(seleccionAnimal, edad, img, comentario, sonidoAnimal);
 const tarjetaImagenAgregada = document.getElementById('cardAgregada');
 const audio = document.getElementById('player');
-
+console.log(imagenPreviewAnimal.src)
 const registro = (event) => {
 
   event.preventDefault(); 
@@ -31,7 +31,7 @@ const registro = (event) => {
     <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2">
     <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="...">
     <div class="card-body">
-    <audio controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
+    <audio  class=" w-100" controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
     </audio>
     </div>
     </div>
@@ -39,20 +39,20 @@ const registro = (event) => {
     animales.innerHTML = arregloAnimalesCard.join(' ')
   }
     if (seleccionAnimal === 'Leon') {
-      const leon = animalito;
+      const leon = new Leon(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(leon);
   
     } else if (seleccionAnimal === 'Lobo') {
-      const lobo = animalito;
+      const lobo = new Lobo(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(lobo);
     } else if (seleccionAnimal === 'Oso') {
-      const oso = animalito;
+      const oso = new Oso(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(oso);
     } else if (seleccionAnimal === 'Serpiente') {
-      const serpiente = animalito;
+      const serpiente = new Serpiente(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(serpiente);
     } else {
-      const aguila = animalito;
+      const aguila = new Aguila(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(aguila);
     }
   //dejo el formulario de ingreso vacio
@@ -102,21 +102,11 @@ const getSonidos = async (baseURL, nombreAnimal) => {
     return {}
   }
 }
-const seleccionandoSonido = (nombreAnimal) => {
-  Promise([getSonidos(baseURL, nombreAnimal)
-    .then(response => {
-      sonidoAnimal.setAttribute("src", `assets/sounds/${response.sonido}`);
-      })
-    .catch(err => console.log('err' , err))
-  ])
-}
-
-
-
 const seleccionandoImagen = (nombreAnimal) => {
   Promise.all([getImagen(baseURL, nombreAnimal)
     .then(response => {
       imagenPreviewAnimal.setAttribute("src", `assets/imgs/${response.imagen}`);
+      console.log('funciona retorno imagen')
       })
     .catch(err => console.log('err' , err))
   ])
@@ -124,3 +114,15 @@ const seleccionandoImagen = (nombreAnimal) => {
 seleccionAnimal.addEventListener('change', () => {
   seleccionandoImagen(seleccionAnimal.value)
 })
+
+const seleccionandoSonido = (nombreAnimal) => {
+  Promise([getSonidos(baseURL, nombreAnimal)
+    .then(response => {
+      sonidoAnimal.setAttribute("src", `assets/sounds/${response.sonido}`);
+      console.log('el sonido igual')
+      })
+    .catch(err => console.log('err' , err))
+  ])
+}
+
+
