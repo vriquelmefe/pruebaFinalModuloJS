@@ -46,7 +46,7 @@ const registro = (event) => {
       const aguila = new Aguila(seleccionAnimal, edad, img, comentario, sonidoAnimal);
       enviarResultado(aguila);
     }
-
+   //IFE 
   //dejo el formulario de ingreso vacio
   (() => {
     document.getElementById('animal').value = "Seleccione un animal";
@@ -99,23 +99,5 @@ const seleccionandoImagen = (nombreAnimal) => {
 seleccionAnimal.addEventListener('change', () => {
   seleccionandoImagen(seleccionAnimal.value)
 })
-
-const seleccionandoSonido = (nombreAnimal) => {
-  Promise([getSonidos(baseURL, nombreAnimal)
-    .then(response => {
-      sonidoAnimal.setAttribute("src", `assets/sounds/${response.sonido}`);
-      console.log('el sonido igual')
-      })
-    .catch(err => console.log('err' , err))
-  ])
-}
-
-// const instancias = () => {
-//   const lion = new Leon(seleccionAnimal, edad, img, comentario, audio);
-//   const wolf = new Lobo(seleccionAnimal, edad, img, comentario, audio);
-//   const bear = new Oso(seleccionAnimal, edad, img, comentario, audio);
-//   const snake = new Serpiente(seleccionAnimal, edad, img, comentario, audio);
-//   const bird = new Aguila(seleccionAnimal, edad, img, comentario, audio);
-// }
 
 
