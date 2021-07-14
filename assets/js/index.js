@@ -21,7 +21,7 @@ const registro = (event) => {
     console.log(sonidoAnimal.sonido)
     arregloAnimalesCard.push( `
     <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2">
-    <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="..." data-bs-toggle="modal" data-bs-target="#${seleccionAnimal.value}-${seleccionAnimal.value}">
+    <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="..." data-bs-toggle="modal" data-bs-target="#${seleccionAnimal.value}">
     <div class="card-body">
     <audio  class=" w-100" controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
     </audio>
@@ -38,28 +38,28 @@ const registro = (event) => {
       enviarResultado(leon);
   
     } else if (seleccionAnimal.value === 'Lobo') {
-      const lobo = new Lobo(seleccionAnimal, edad, img, comentario, sonidoAnimal);
+      const lobo = new Lobo(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
       enviarResultado(lobo);
     } else if (seleccionAnimal.value === 'Oso') {
-      const oso = new Oso(seleccionAnimal, edad, img, comentario, sonidoAnimal);
+      const oso = new Oso(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
       enviarResultado(oso);
     } else if (seleccionAnimal.value === 'Serpiente') {
-      const serpiente = new Serpiente(seleccionAnimal, edad, img, comentario, sonidoAnimal);
+      const serpiente = new Serpiente(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
       enviarResultado(serpiente);
     } else  if (seleccionAnimal.value === 'Aguila' ){
-      const aguila = new Aguila(seleccionAnimal, edad, img, comentario, sonidoAnimal);
+      const aguila = new Aguila(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
       enviarResultado(aguila);
      }else {
        alert ('falta algo')
      }
-  //  //IFE 
-  // //dejo el formulario de ingreso vacio
-  // (() => {
-  //   document.getElementById('animal').value = "Seleccione un animal";
-  //   document.getElementById('edad').value = "";
-  //   document.getElementById('comentarios').value = "";
-  //   //document.getElementById('imagenAnimal').src = "";
-  // })();
+   //IFE 
+  //dejo el formulario de ingreso vacio
+  (() => {
+    document.getElementById('animal').value = "Seleccione un animal";
+    document.getElementById('edad').value = "";
+    document.getElementById('comentarios').value = "";
+    //document.getElementById('imagenAnimal').src = "";
+  })();
   
 }
 const modal = document.querySelector("#modal");
