@@ -62,37 +62,21 @@ const registro = (event) => {
   //  })();
   
 }
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modal-body");
-
-function openModalWith(something) {
-  modalBody.innerHTML = something;
-  $(modal).modal("show");
-}
-function modalClick(animal) {
-  
-const edad = document.getElementById('edad');
-const comentario = document.getElementById('comentarios');
-  return function (event) {
-    openModalWith(`
-      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h5 class="modal-title" id="exampleModalLabel">${animal}</h5>   
-      <hr>
-      <img src="${imagenPreviewAnimal.src}" class="img-fluid">
-      <hr>
-      <h5>Edad</h5>
-      <p>${edad.value}</p>
-      <hr>
-      <h5>Comentarios</h5>
-      <p class="mb-0">${comentario.value}</p>     
-    `);
-  };
-}
 //tomo el evento click del boton registrar
 btnRegistrar.addEventListener('click', registro);
 
+seleccionAnimal.addEventListener('change', () => {
+  seleccionandoImagen(seleccionAnimal.value)
+})
+const seleccionandoImagen = (nombreAnimal) => {
+  Promise.all([getImagen(baseURL, nombreAnimal)
+    .then(response => {
+      imagenPreviewAnimal.setAttribute("src", `assets/imgs/${response.imagen}`);
+      console.log('funciona retorno imagen')
+      })
+    .catch(err => console.log('err' , err))
+  ])
+}
 //json animales
 const baseURL = './animales.json';
 const request = async (url) => {
@@ -120,17 +104,34 @@ const getSonidos = async (baseURL, nombreAnimal) => {
     return {}
   }
 }
-const seleccionandoImagen = (nombreAnimal) => {
-  Promise.all([getImagen(baseURL, nombreAnimal)
-    .then(response => {
-      imagenPreviewAnimal.setAttribute("src", `assets/imgs/${response.imagen}`);
-      console.log('funciona retorno imagen')
-      })
-    .catch(err => console.log('err' , err))
-  ])
-}
-seleccionAnimal.addEventListener('change', () => {
-  seleccionandoImagen(seleccionAnimal.value)
-})
 
+//creacion modal
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
+
+function openModalWith(something) {
+  modalBody.innerHTML = something;
+  $(modal).modal("show");
+}  
+function modalClick(animal) {
+  
+const edad = document.getElementById('edad');  
+const comentario = document.getElementById('comentarios');
+  return function (event) {
+    openModalWith(`
+      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>  
+      <h5 class="modal-title" id="exampleModalLabel">${animal}</h5>   
+      <hr>
+      <img src="${imagenPreviewAnimal.src}" class="img-fluid">
+      <hr>
+      <h5>Edad</h5>
+      <p>${edad.value}</p>
+      <hr>
+      <h5>Comentarios</h5>
+      <p class="mb-0">${comentario.value}</p>     
+    `);  
+  };  
+}  
 
