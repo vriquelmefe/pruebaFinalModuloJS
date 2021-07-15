@@ -20,16 +20,16 @@ const registro = (event) => {
     let i;
     console.log(sonidoAnimal.sonido)
     arregloAnimalesCard.push( `
-    <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2">
+    <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2 bg-secondary">
     <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="..." data-bs-toggle="modal" data-bs-target="#${seleccionAnimal.value}">
     <div class="card-body">
-    <audio  class=" w-100" controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
+    <audio  class="w-100" controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
     </audio>
     </div>
     </div>
     `)
     animales.innerHTML = arregloAnimalesCard.join(' ')
-    imagenCard.addEventListener("click", openModalOnClick(seleccionAnimal.value));
+    imagenCard.addEventListener("click", modalClick(seleccionAnimal.value));
   }
   
  
@@ -52,30 +52,33 @@ const registro = (event) => {
      }else {
        alert ('falta algo')
      }
-   //IFE 
-  //dejo el formulario de ingreso vacio
-  (() => {
-    document.getElementById('animal').value = "Seleccione un animal";
-    document.getElementById('edad').value = "";
-    document.getElementById('comentarios').value = "";
-    //document.getElementById('imagenAnimal').src = "";
-  })();
+  // //  IFE 
+  // // dejo el formulario de ingreso vacio
+  //  (() => {
+  //    document.getElementById('animal').value = "";
+  //    document.getElementById('edad').value = "";
+  //    document.getElementById('comentarios').value = "";
+  //    //document.getElementById('imagenAnimal').src = "";
+  //  })();
   
 }
-const modal = document.querySelector("#modal");
-const modalBody = document.querySelector("#modal-body");
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
 
 function openModalWith(something) {
   modalBody.innerHTML = something;
   $(modal).modal("show");
 }
-function openModalOnClick(animal) {
+function modalClick(animal) {
+  
+const edad = document.getElementById('edad');
+const comentario = document.getElementById('comentarios');
   return function (event) {
     openModalWith(`
       <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <h5 class="modal-title" id="exampleModalLabel">${seleccionAnimal.value}</h5>   
+      <h5 class="modal-title" id="exampleModalLabel">${animal}</h5>   
       <hr>
       <img src="${imagenPreviewAnimal.src}" class="img-fluid">
       <hr>
