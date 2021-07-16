@@ -1,137 +1,284 @@
-import Leon from './classLeon.js';
-import Lobo from './classLobo.js';
-import Oso from './classOso.js';
-import Serpiente from './classSerpiente.js';
-import Aguila from './classAguila.js';
 
-const seleccionAnimal = document.getElementById('animal');
-const imagenPreviewAnimal = document.getElementById('imagenAnimal');
-const sonidoAnimal = document.getElementById('sonidoAnimal');
-const arregloAnimalesCard = [];
-const edad = document.getElementById('edad');
-const comentario = document.getElementById('comentarios');
-const img = imagenPreviewAnimal.src;
+class Animal {
+  #nombre;
+  #edad;
+  #img;
+  #comentarios;
+  #sonido;
 
-const registro = (event) => {
-  event.preventDefault(); 
-  async function enviarResultado () {
-    const animales = document.getElementById('Animales') //aqui van cargadas las imagenes del animal registrado   
-    const sonidoAnimal = await getSonidos(baseURL, seleccionAnimal.value);
-    let i;
-    console.log(sonidoAnimal.sonido)
-    arregloAnimalesCard.push( `
-    <div id="cardAgregada-${seleccionAnimal.value}" class="card col-4 border-0 m-2 bg-secondary">
-    <img id="imagenCard" src="${imagenPreviewAnimal.src}" class="w-100" alt="..." data-bs-toggle="modal" data-bs-target="#${seleccionAnimal.value}">
-    <div class="card-body">
-    <audio  class="w-100" controls id="sonidoAnimal" src="assets/sounds/${sonidoAnimal.sonido}">
-    </audio>
-    </div>
-    </div>
-    `)
-    animales.innerHTML = arregloAnimalesCard.join(' ')
-    imagenCard.addEventListener("click", modalClick(seleccionAnimal.value));
+  constructor(nombre, edad, img, comentarios, sonido) {
+    this.#nombre = nombre;
+    this.#edad = edad;
+    this.#img = img;
+    this.#comentarios = comentarios;
+    this.#sonido = sonido;
   }
-  
- 
-    if (seleccionAnimal.value === 'Leon') {
-      const leon = new Leon(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
-      enviarResultado(leon);
-  
-    } else if (seleccionAnimal.value === 'Lobo') {
-      const lobo = new Lobo(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
-      enviarResultado(lobo);
-    } else if (seleccionAnimal.value === 'Oso') {
-      const oso = new Oso(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
-      enviarResultado(oso);
-    } else if (seleccionAnimal.value === 'Serpiente') {
-      const serpiente = new Serpiente(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
-      enviarResultado(serpiente);
-    } else  if (seleccionAnimal.value === 'Aguila' ){
-      const aguila = new Aguila(seleccionAnimal.value, edad.value, img, comentario.value, sonidoAnimal);
-      enviarResultado(aguila);
-     }else {
-       alert ('falta algo')
-     }
-  // //  IFE 
-  // // dejo el formulario de ingreso vacio
-  //  (() => {
-  //    document.getElementById('animal').value = "";
-  //    document.getElementById('edad').value = "";
-  //    document.getElementById('comentarios').value = "";
-  //    //document.getElementById('imagenAnimal').src = "";
-  //  })();
-  
-}
-//tomo el evento click del boton registrar
-btnRegistrar.addEventListener('click', registro);
 
-seleccionAnimal.addEventListener('change', () => {
-  seleccionandoImagen(seleccionAnimal.value)
-})
-const seleccionandoImagen = (nombreAnimal) => {
-  Promise.all([getImagen(baseURL, nombreAnimal)
-    .then(response => {
-      imagenPreviewAnimal.setAttribute("src", `assets/imgs/${response.imagen}`);
-      console.log('funciona retorno imagen')
-      })
-    .catch(err => console.log('err' , err))
-  ])
-}
-//json animales
-const baseURL = './animales.json';
-const request = async (url) => {
-  const response = await fetch(url);
-  const datos = await response.json();
-  return datos
-}
-const getImagen = async (baseURL, nombreAnimal) => {
-  const url = await request(baseURL);
-  const todosLosAnimales = url.animales;
-  const imagenDelAnimal = todosLosAnimales.find(record => record.name === nombreAnimal)
-  if(imagenDelAnimal){
-    return {imagen: imagenDelAnimal.imagen}
-  }else{
-    return {}
+  get Nombre() {
+    return this.#nombre;
   }
-}
-const getSonidos = async (baseURL, nombreAnimal) => {
-  const url = await request(baseURL);
-  const todosLosAnimales = url.animales;
-  const sonidoDelAnimal = todosLosAnimales.find(record => record.name === nombreAnimal)
-  if(sonidoDelAnimal){
-    return {sonido: sonidoDelAnimal.sonido}
-  }else{
-    return {}
+
+  get Edad() {
+    return this.#edad;
+  }
+
+  get Img() {
+    return this.#img;
+  }
+
+  get Sonido() {
+    return this.#sonido;
+  }
+
+  set Comentarios(comentarios) {
+    this.#comentarios = comentarios;
+  }
+
+  get Comentarios() {
+    return this.#comentarios;
   }
 }
 
-//creacion modal
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modal-body");
+class Leon extends Animal {
+  constructor(...args) {
+    super(...args);
+  }
 
-function openModalWith(something) {
-  modalBody.innerHTML = something;
-  $(modal).modal("show");
-}  
-function modalClick(animal) {
-  
-const edad = document.getElementById('edad');  
-const comentario = document.getElementById('comentarios');
-  return function (event) {
-    openModalWith(`
-      <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+  Rugir(player) {
+    console.log("rooooar");
+    player.src = `./assets/sounds/${this.Sonido}`;
+    player.load();
+    player.play();
+  }
+}
+
+class Lobo extends Animal {
+  constructor(...args) {
+    super(...args);
+  }
+
+  Aullar() {
+    console.log("auuuuuuu");
+    player.src = `./assets/sounds/${this.Sonido}`;
+    player.load();
+    player.play();
+  }
+}
+
+class Oso extends Animal {
+  constructor(...args) {
+    super(...args);
+  }
+
+  Gruñir() {
+    console.log("grrrrrrr");
+    player.src = `./assets/sounds/${this.Sonido}`;
+    player.load();
+    player.play();
+  }
+}
+
+class Serpiente extends Animal {
+  constructor(...args) {
+    super(...args);
+  }
+
+  Sisear() {
+    console.log("zzzzzzzzz");
+    player.src = `./assets/sounds/${this.Sonido}`;
+    player.load();
+    player.play();
+  }
+}
+
+class Aguila extends Animal {
+  constructor(...args) {
+    super(...args);
+  }
+
+  Chillar() {
+    console.log("chrrrchrhchrhchr");
+    player.src = `./assets/sounds/${this.Sonido}`;
+    player.load();
+    player.play();
+  }
+}
+
+(async function () {
+  const animalElement = document.getElementById("animal");
+  const edadElement = document.getElementById("edad");
+  const comentariosElement = document.getElementById("comentarios");
+  const previewElement = document.getElementById("preview");
+  const btnRegistrarElement = document.getElementById("btnRegistrar");
+
+  const playerElement = document.getElementById("player");
+
+  const TarjetitasDeAnimales = [];
+
+  let Animales;
+  //let Animales = undefined;
+  try {
+    const Request = await fetch("/animales.json");
+    const ParsedRequest = await Request.json();
+
+    //  const {json} = await fetch("/animales.json");
+    //  const ParsedRequest = await json();
+
+    //  const Request = await fetch("/animales.json");
+    // const { animales } = await Request.json();
+
+    Animales = ParsedRequest.animales;
+  } catch (e) {
+    console.error(e);
+    Animales = [];
+  }
+
+  function actualizarVista() {
+    const zonaDeTarjetasElement = document.querySelector(".zona-de-tarjetas");
+
+    /**
+     * borrar todas las tarjetas que habian antes de agregar denuevo las tarjetas
+     */
+    zonaDeTarjetasElement.innerHTML = "";
+
+    /**
+     * vamos animal por animal agregando las tarjetas al DOM
+     */
+    TarjetitasDeAnimales.forEach((animal) => {
+      const DIVCard = document.createElement("div");
+      const DIVFoto = document.createElement("div");
+      const DIVBoton = document.createElement("div");
+
+      DIVCard.classList.add("card", "text-white", "bg-secondary");
+      DIVCard.style.width = "200px";
+
+      DIVFoto.innerHTML = `<img class="card-img-top" src="./assets/imgs/${animal.Img}" />`;
+
+      DIVBoton.classList.add("card-body", "p-0");
+      DIVBoton.innerHTML = `
+        <a href="#" class="btn btn-primary">
+          <img class="p-1" src="./assets/imgs/audio.svg" style="width: 50px" />
+        </a>`;
+
+      DIVFoto.addEventListener("click", () => {
+        $("#modal").modal("show");
+        console.log(animal);
+        const modalBody = document.getElementById("modal-body");
+        modalBody.innerHTML = `
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>  
-      <h5 class="modal-title" id="exampleModalLabel">${animal}</h5>   
+      <h5 class="modal-title" id="exampleModalLabel">${animal.Nombre}</h5>   
       <hr>
-      <img src="${imagenPreviewAnimal.src}" class="img-fluid">
+      <img src="./assets/imgs/${animal.Img}" style="width: 500px" class="img-fluid"/>
       <hr>
       <h5>Edad</h5>
-      <p>${edad.value}</p>
+      <p>${animal.Edad}</p>
       <hr>
       <h5>Comentarios</h5>
-      <p class="mb-0">${comentario.value}</p>     
-    `);  
-  };  
-}  
+      <p class="mb-0">${animal.Comentarios}</p>
+        `;
+      });
 
+      DIVBoton.addEventListener("click", () => {
+        if (animal.Nombre === "Leon") {
+          animal.Rugir(playerElement);
+        } else if (animal.Nombre === "Lobo") {
+          animal.Aullar(playerElement);
+        } else if (animal.Nombre === "Oso") {
+          animal.Aullar(playerElement);
+        }
+        else if (animal.Nombre === "Serpiente") {
+          animal.Aullar(playerElement);
+        }
+        else if (animal.Nombre === "Aguila") {
+          animal.Aullar(playerElement);
+        } else { 
+          alert('Esto no esta funcionando, tu animal no esta reconocido')
+        }
+      });
+
+      DIVCard.appendChild(DIVFoto);
+      DIVCard.appendChild(DIVBoton);
+
+      zonaDeTarjetasElement.appendChild(DIVCard);
+    });
+  }
+
+  animalElement.addEventListener("change", (event) => {
+    // console.log({ event });
+    const nombreDelAnimalElegido = animalElement.value;
+
+    const animalEncontrado = Animales.find(
+      (animal) => animal.name === nombreDelAnimalElegido
+    );
+
+    previewElement.setAttribute(
+      "src",
+      `./assets/imgs/${animalEncontrado.imagen}`
+    );
+  });
+
+  btnRegistrarElement.addEventListener("click", () => {
+    let nombre = animalElement.value;
+    let edad = edadElement.value;
+    let comentarios = comentariosElement.value;
+
+    const { imagen, sonido } = Animales.find(
+      (animal) => animal.name === nombre
+    );
+
+    switch (nombre) {
+      case "Leon":
+        {
+          const leoncio = new Leon(nombre, edad, imagen, comentarios, sonido);
+          TarjetitasDeAnimales.push(leoncio);
+        }
+        break;
+
+      case "Lobo":
+        {
+          const lobito = new Lobo(nombre, edad, imagen, comentarios, sonido);
+          TarjetitasDeAnimales.push(lobito);
+        }
+        break;
+
+      case "Oso":
+        {
+          const osito = new Oso(nombre, edad, imagen, comentarios, sonido);
+          TarjetitasDeAnimales.push(osito);
+        }
+        break;
+
+      case "Aguila":
+        {
+          const aguilita = new Aguila(
+            nombre,
+            edad,
+            imagen,
+            comentarios,
+            sonido
+          );
+          TarjetitasDeAnimales.push(aguilita);
+        }
+        break;
+
+      case "Serpiente":
+        {
+          const serpientechiquitita = new Serpiente(
+            nombre,
+            edad,
+            imagen,
+            comentarios,
+            sonido
+          );
+          TarjetitasDeAnimales.push(serpientechiquitita);
+        }
+        break;
+    }
+
+    console.log(TarjetitasDeAnimales);
+
+    actualizarVista();
+  });
+})();
