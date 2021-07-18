@@ -1,8 +1,9 @@
-// import Leon from './classLeon.js';
-// import Lobo from './classLobo.js';
-// import Oso from './classOso.js';
-// import Serpiente from './classSerpiente.js';
-// import Aguila from './classAguila.js';
+// mi codigo de acuerdo a lo conversado con Docente Luis.
+// mi codigo es indexMiCodigo.html y su js es clssAnimal.js y animalito.js.
+
+
+// el index.html es el codigo funcional de acuerdo a lo planteado por Docente Luis y su js es index.js y Classindex.js
+
 
 import {Leon, Lobo, Oso, Serpiente, Aguila} from './animalitos.js';
 
@@ -55,7 +56,8 @@ const registro = (event) => {
        alert ('falta algo')
      }
   // //  IFE 
-  // // dejo el formulario de ingreso vacio
+  // // dejo el formulario de ingreso vacio //la dejo comentada por que no alcance
+  // // a dejarla funcional
   //  (() => {
   //    document.getElementById('animal').value = "";
   //    document.getElementById('edad').value = "";
